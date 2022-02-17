@@ -7,14 +7,16 @@
  * @returns {{children: *[], type, props}}
  */
 function createElement(type, props, ...children) {
-  const childrenElements  =[].concat(...children).map(child=>{
+  const childrenElements  =[].concat(...children).reduce((result, child)=>{
+  if (child !== false && child !== true && child !== null){
     if (child instanceof Object){
-      return child
-
+      result.push(child)
     }else{
-return createElement('text', {textContent: child})
+      result.push(createElement('text', {textContent: child}))
     }
-  })
+    }
+return result
+  },[])
 
   return { type, props , children:childrenElements};
 }
