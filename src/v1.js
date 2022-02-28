@@ -333,5 +333,5 @@ function Counter() {
   return <h1 onClick={() => setState((c) => c + 1)}>Count: {state}</h1>;
 }
 const element = <Counter />;
-const container = document.getElementById("root");
+const container = document.getElementById("app");
 ReactDOM.render(element, container);
