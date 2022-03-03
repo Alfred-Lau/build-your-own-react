@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>react 15 性能瓶颈是通过递归引入的</title>
+</head>
+<body>
+<script>
+
+  import React from "react";
+  // import ReactDOM from "react-dom";
+  // import App from "./App";
+
+  const jsx = (
+    <div className="App">
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+      <div id="b1">
+        <div id="c1"></div>
+        <div id="c2"></div>
+      </div>
+      <div id="b2"></div>
+    </div>
+  );
+
+  const container = document.getElementById("root");
+
+  function render(vdom: any, container: Element) {
+    const ele = document.createElement(vdom.type);
+
+    Object.keys(vdom.props)
+      .filter((item) => item !== "children")
+      .forEach((propKey) => (ele[propKey] = vdom.props[propKey]));
+
+    if (Array.isArray(vdom.props.children)) {
+      vdom.props.children.forEach((child: any) => render(child, ele));
+    }
+    container.appendChild(ele);
+  }
+
+  render(jsx, container!);
+  // ReactDOM.render(<App />, document.getElementById("root"));
+
+</script>
+</body>
+</html>

@@ -329,8 +329,17 @@ ReactDOM.render(element, container);
 
 /** @jsx React.createElement */
 function Counter() {
+  console.log("dsdsds");
   const [state, setState] = ReactDOM.useState(1);
-  return <h1 onClick={() => setState((c) => c + 1)}>Count: {state}</h1>;
+  const handleClick = (e) => {
+    console.log("我只应该输出一次");
+  };
+  return (
+    <div>
+      <h1 onClick={() => setState((c) => c + 1)}>Count: {state}</h1>
+      <h1 onClick={handleClick}>Count: {state}</h1>
+    </div>
+  );
 }
 const element = <Counter />;
 const container = document.getElementById("app");
